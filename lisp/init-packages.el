@@ -74,6 +74,9 @@
 (require 'smex) ; Not needed if you use package.el
 (smex-initialize)
 
+;;-----------hungry delete
+require 'hungry-delete)
+(global-hungry-delete-mode)
 
 ;;----------------------------------------------------------------------------------
 ;; (require 'helm)
