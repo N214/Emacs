@@ -34,17 +34,28 @@
 (global-linum-mode nil)
 (linum-relative-toggle)
 
+;;---------evil-mode
+
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-search-module 'evil-search)
+  (setq evil-ex-complete-emacs-commands nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (setq evil-shift-round nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-maybe-remove-spaces t)
+  :config
+  (evil-mode 1)
+  (evil-escape-mode 1))
+
+(setq-default evil-escape-key-sequence "jk")
+
 ;;---------evil leader
 (global-evil-leader-mode)
 (evil-leader/set-leader ",")
 (evil-leader/set-key "f" 'ranger)
-
-;;---------evil-mode
-(evil-mode t)
-(require 'evil)
-(setq evil-want-C-u-scroll t)
-(evil-escape-mode t)
-(setq-default evil-escape-key-sequence "jk")
 
 ;;----------ivy-mode
 (ivy-mode 1)
