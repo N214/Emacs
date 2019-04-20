@@ -3,6 +3,7 @@
 ;;(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (menu-bar-mode -1)
+
 ;;(global-linum-mode t)
 (global-auto-revert-mode t)
 
