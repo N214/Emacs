@@ -1,0 +1,17 @@
+
+;; ----- smex-history -----
+(
+ hydra-ivy/body
+ smex
+ cd
+ 5x5
+ arp
+ dbx
+ dig
+)
+
+;; ----- smex-data -----
+(
+ (smex . 1)
+ (hydra-ivy/body . 1)
+)
