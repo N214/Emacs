@@ -2,7 +2,7 @@
 
 (defun open-init()
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file "~/.emacs.d/n214.org"))
 
 ;;(global-company-mode t) 
 
@@ -24,9 +24,7 @@
 
 ;;---------------------------------------------------
 
-;; (unless (package-installed-p 'use-package)
-;; (package-refresh-contents)
-;; (package-install 'use-package))
+;;Use package config
 
 (eval-when-compile
   (require 'use-package))
