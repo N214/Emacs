@@ -159,7 +159,7 @@
 
 
 ;;----------------------------------------------------------------------------------
-;;(setq-default helm-M-x-fuzzy-match t)
+(setq-default helm-M-x-fuzzy-match t)
 
 ;;--------auto_mode
 (setq auto-mode-alist
@@ -218,5 +218,6 @@
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 
 
+;;--------------------ranger
 
 (provide 'init-packages)
