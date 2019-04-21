@@ -10,7 +10,6 @@
 (require 'recentf) ;;We have a file named recentf and we need this file to enalble recentf
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 ;; ----------------------------
 (define-advice show-paren-function (:around (fn) fix-show-paren-function)

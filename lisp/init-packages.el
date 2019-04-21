@@ -75,7 +75,7 @@
 (smex-initialize)
 
 ;;-----------hungry delete
-require 'hungry-delete)
+(require 'hungry-delete)
 (global-hungry-delete-mode)
 
 ;;----------------------------------------------------------------------------------
@@ -173,5 +173,15 @@ require 'hungry-delete)
 ;;---------------------Powerline
 (require 'powerline)
 (powerline-default-theme)
+
+;;--------------------org-pomodoro
+(require 'org-pomodoro)
+
+;;--------------------yasnippets
+(require 'yasnippet)
+(yas-reload-all)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
+
+
 
 (provide 'init-packages)

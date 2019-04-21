@@ -48,11 +48,16 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
 (provide 'init-keybindings)
 
-;;evil-mode
+;;Company C-n C-p movement
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "M-") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
-;;(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-;;(define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
-;;(define-key evil-insert-state-map (kbd "C-u")
-;;  (lambda ()
-;;    (interactive)
-;;    (evil-delete (point-at-bol) (point))))
+;;helm-ag
+(global-set-key (kbd "C-c p s") 'helm-do-ag-project-root)
+
+;;auto-yasnippets
+(global-set-key (kbd "H-w") #'aya-create)
+(global-set-key (kbd "H-y") #'aya-expand)

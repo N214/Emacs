@@ -11,12 +11,14 @@
 (require 'init-ui)
 (require 'init-better-default)
 (require 'init-org)
-(require 'init-keybindings)
 (require 'init-packages)
 (require 'custom)
+(require 'init-keybindings)
+
 (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
 (load-file custom-file)
 
+;;(require 'init-benchmarking)
 
 (setq package-enable-at-startup nil)
 

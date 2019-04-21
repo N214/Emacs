@@ -1,17 +1,24 @@
 
 ;; ----- smex-history -----
 (
- hydra-ivy/body
+ list-packages
+ helm-do-ag-project-root
+ toggle-input-method
+ set-input-method
+ customize-group
+ org-capture
  smex
- cd
- 5x5
- arp
- dbx
- dig
 )
 
 ;; ----- smex-data -----
 (
  (smex . 1)
  (hydra-ivy/body . 1)
+ (list-packages . 6)
+ (org-capture . 1)
+ (customize-group . 1)
+ (set-input-method . 1)
+ (toggle-input-method . 1)
+ (helm-rg . 2)
+ (helm-do-ag-project-root . 2)
 )
