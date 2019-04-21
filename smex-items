@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
+ helm-mini
+ counsel-git
+ counsel-yank-pop
+ counsel-ag
+ ivy-switch-buffer
+ helm-ag
  list-packages
- helm-do-ag-project-root
- toggle-input-method
- set-input-method
- customize-group
- org-capture
- smex
 )
 
 ;; ----- smex-data -----
@@ -21,4 +21,10 @@
  (toggle-input-method . 1)
  (helm-rg . 2)
  (helm-do-ag-project-root . 2)
+ (helm-ag . 1)
+ (helm-mini . 6)
+ (ivy-switch-buffer . 1)
+ (counsel-ag . 1)
+ (counsel-yank-pop . 1)
+ (counsel-git . 1)
 )

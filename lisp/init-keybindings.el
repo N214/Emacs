@@ -1,23 +1,24 @@
 ;;-------------------------helm
-;;(global-set-key (kbd "M-x") #'helm-M-x)
-;;(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-;;(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x b") #'helm-mini)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
 
 ;;-------------------------smex
 
-  (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-
-;;-------------------------ivy
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c p f") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
+;;  (global-set-key (kbd "M-x") 'smex)
+;;  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;;
+;;;;-------------------------ivy
+;;(global-set-key (kbd "M-x") 'counsel-M-x)
+;;(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;;(global-set-key (kbd "C-c g") 'counsel-git)
+;;(global-set-key (kbd "C-c p f") 'counsel-git)
+;;(global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+;;(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;;(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 ;;---------------------------------init-file
 (global-set-key (kbd "<f2>") 'open-init)

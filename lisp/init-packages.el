@@ -25,6 +25,18 @@
             when (not (package-installed-p pkg)) do (return nil)
             finally (return t)))
 
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; To load newer version of org
+(package-initialize)
+
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
 ;;---------popwin mode
 (require 'popwin)
 (popwin-mode t)
@@ -79,10 +91,22 @@
 (global-hungry-delete-mode)
 
 ;;----------------------------------------------------------------------------------
-;; (require 'helm)
-;;(require 'helm-config)
-;;  (helm-mode 1)
-;;
+(require 'helm)
+(require 'helm-config)
+(helm-mode 1)
+
+;;; Make DEL/BACKSPACE delete one character or the last path (if before a '/')
+;; from https://github.com/hatschipuh/better-helm
+(defun my-dwim-helm-find-files-up-one-level-maybe ()
+  (interactive)
+  (if (looking-back "/" 1)
+      (call-interactively 'helm-find-files-up-one-level)
+    (delete-char -1)))
+(bind-key "<backspace>" #'my-dwim-helm-find-files-up-one-level-maybe helm-read-file-map)
+(bind-key "<backspace>" #'my-dwim-helm-find-files-up-one-level-maybe helm-find-files-map)
+(bind-key "DEL" #'my-dwim-helm-find-files-up-one-level-maybe helm-read-file-map)
+(bind-key "DEL" #'my-dwim-helm-find-files-up-one-level-maybe helm-find-files-map);
+
 ;;(defun helm-ido-like-find-files-up-one-level-maybe ()
 ;;  (interactv)
 ;;  (if (looking-back "/" 1)
