@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored"
+(("ranger-p"
+ (filename . "~/Dropbox/")
+ (front-context-string . "  total used in ")
+ (rear-context-string)
+ (position . 1))
+("ranger-d"
+ (filename . "~/Downloads/")
+ (front-context-string . "20190329 Cours 4")
+ (rear-context-string . ".7M 04-12 16:28 ")
+ (position . 291))
+("org-capture-last-stored"
  (filename . "~/.emacs.d/gtd.org")
  (front-context-string . "** TODO [#B]Clea")
  (rear-context-string . "acs video ep6 \n\n")
