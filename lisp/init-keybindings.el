@@ -47,7 +47,6 @@
 ;;Dired mode bindings
 (with-eval-after-load 'dired)
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-(provide 'init-keybindings)
 
 ;;Company C-n C-p movement
 (with-eval-after-load 'company
@@ -62,3 +61,9 @@
 ;;auto-yasnippets
 (global-set-key (kbd "H-w") #'aya-create)
 (global-set-key (kbd "H-y") #'aya-expand)
+
+;;pdf-tools
+
+
+
+(provide 'init-keybindings)
