@@ -62,8 +62,26 @@
 (global-set-key (kbd "H-w") #'aya-create)
 (global-set-key (kbd "H-y") #'aya-expand)
 
-;;pdf-tools
+;;evil
+(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 
+;;code wrapped in eval-after-load to protect against the code executing too soon
+(with-eval-after-load 'evil
+  ;; use evil mode in the buffer created from calling `list-packages'.
+  (add-to-list 'evil-buffer-regexps '("*Packages*" . normal))
 
+  (with-eval-after-load 'package
+    ;; movement keys j,k,l,h set up for free by defaulting to normal mode.
+    ;; mark, unmark, install
+    (evil-define-key 'normal package-menu-mode-map (kbd "m") #'package-menu-mark-install)
+    (evil-define-key 'normal package-menu-mode-map (kbd "u") #'package-menu-mark-unmark)
+    (evil-define-key 'normal package-menu-mode-map (kbd "x") #'package-menu-execute)))
+
+;;Spotify
+(global-set-key (kbd "C-c s s") 'helm-spotify-plus) 
+(global-set-key (kbd "C-c s f") 'helm-spotify-plus-next)
+(global-set-key (kbd "C-c s b") 'helm-spotify-plus-previous)
+(global-set-key (kbd "C-c s p") 'helm-spotify-plus-toggle-play-pause) 
 
 (provide 'init-keybindings)

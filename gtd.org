@@ -3,7 +3,7 @@
 ** TODO [#B] View emacs video ep6 
    SCHEDULED: <2019-04-21 Sun 15:24>
 
-** TODO [#B]Clean up our config
+** TODO [#B] Clean up our config
 
 ** TODO [#B] 
 

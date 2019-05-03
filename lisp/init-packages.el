@@ -25,7 +25,7 @@
             when (not (package-installed-p pkg)) do (return nil)
             finally (return t)))
 
-;; Bootstrap `use-package'
+;; Bootstrap 'use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -240,5 +240,17 @@
  (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
  (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
  (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete))
+
+;;--------------------undo tree
+(use-package undo-tree
+  :config)
+;;-------------------search mode
+(use-package engine-mode
+  :config
+  ;;initialise
+  (engine-mode t)
+  (defengine duckduckgo
+  "https://duckduckgo.com/?q=%s"
+  :keybinding "d")) ;;C-x / d 
 
 (provide 'init-packages)
