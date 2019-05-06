@@ -100,4 +100,49 @@
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
+;;---------------------------------------------------------------Rmarkdown
+;; spa/rmd-render
+;; Global history list allows Emacs to "remember" the last
+;; render commands and propose as suggestions in the minibuffer.
+(defvar rmd-render-history nil "History list for spa/rmd-render.")
+(defun spa/rmd-render (arg)
+  "Render the current Rmd file to PDF output.
+   With a prefix arg, edit the R command in the minibuffer"
+  (interactive "P")
+  ;; Build the default R render command
+  (setq rcmd (concat "rmarkdown::render('" buffer-file-name "',"
+                 "output_dir = './',"
+                 "output_format = 'pdf_document')"))
+  ;; Check for prefix argument
+  (if arg
+      (progn
+    ;; Use last command as the default (if non-nil)
+    (setq prev-history (car rmd-render-history))
+    (if prev-history
+        (setq rcmd prev-history)
+      nil)
+    ;; Allow the user to modify rcmd
+    (setq rcmd
+          (read-from-minibuffer "Run: " rcmd nil nil 'rmd-render-history))
+    )
+    ;; With no prefix arg, add default rcmd to history
+    (setq rmd-render-history (add-to-history 'rmd-render-history rcmd)))
+  ;; Build and evaluate the shell command
+  (setq command (concat "echo \"" rcmd "\" | R --vanilla"))
+  (compile command))
+;;(define-key polymode-minor-mode (kbd "C-c r")  'spa/rmd-render)
+
+;;--------------------------------------------------Hide compilation
+; from enberg on #emacs
+(setq compilation-finish-function
+  (lambda (buf str)
+    (if (null (string-match ".*exited abnormally.*" str))
+        ;;no errors, make the compilation window go away in a few seconds
+        (progn
+          (run-at-time
+           "2 sec" nil 'delete-windows-on
+           (get-buffer-create "*compilation*"))
+          (message "No Compilation Errors!")))))
+
+
 (provide 'init-better-default)

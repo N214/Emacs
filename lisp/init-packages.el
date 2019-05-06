@@ -213,10 +213,11 @@
 (require 'org-pomodoro)
 
 ;;--------------------yasnippets
-(require 'yasnippet)
-(yas-reload-all)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
-
+;;(use-package yasnippet
+;;  :ensure t
+;;  :config
+;;  (yas-reload-all)
+;;  (add-hook 'prog-mode-hook #'yas-minor-mode))
 
 ;;--------------------pdf-tools
 
@@ -270,5 +271,6 @@
 (require 'py-autopep8)
 (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 
+;;---------------------ess
 
 (provide 'init-packages)

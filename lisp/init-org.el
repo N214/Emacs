@@ -9,6 +9,8 @@
 	 "* TODO [#B] %?\n %i\n"
 	 :empty-lines 1)))
   )
+(add-hook 'org-mode-hook '(lambda () (setq fill-column 130)))
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 ;; C-c C-t TODO
 ;; C-c C-d Set deadline
 ;; C-c C-s Set schedule
