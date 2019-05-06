@@ -253,4 +253,22 @@
   "https://duckduckgo.com/?q=%s"
   :keybinding "d")) ;;C-x / d 
 
+;;------------------elpy
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable)
+  (setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt"))
+
+;;------------------flycheck
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;;-------------------pip8
+(require 'py-autopep8)
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
+
 (provide 'init-packages)
