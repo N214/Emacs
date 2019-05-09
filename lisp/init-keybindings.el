@@ -84,4 +84,10 @@
 (global-set-key (kbd "C-c s b") 'helm-spotify-plus-previous)
 (global-set-key (kbd "C-c s p") 'helm-spotify-plus-toggle-play-pause) 
 
+;;window resize
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'enlarge-window)
+(global-set-key (kbd "S-C-<up>") 'shrink-window)
+
 (provide 'init-keybindings)
