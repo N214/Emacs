@@ -259,9 +259,11 @@
   :ensure t
   :init
   (elpy-enable)
+  (exec-path-from-shell-copy-env "PATH")
   (setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt"))
-
+      python-shell-interpreter-args "-i --simple-prompt")
+  (with-eval-after-load 'python
+  (remove-hook 'python-mode-hook #'python-setup-shell)))
 ;;------------------flycheck
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
