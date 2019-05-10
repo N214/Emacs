@@ -276,4 +276,9 @@
 ;;---------------------symon
   (require 'symon)
   (symon-mode t)
+
+;;---------------------evil-magit
+(require 'evil-magit)
+
+
 (provide 'init-packages)
