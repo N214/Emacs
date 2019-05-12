@@ -143,10 +143,4 @@
            "2 sec" nil 'delete-windows-on
            (get-buffer-create "*compilation*"))
           (message "No Compilation Errors!")))))
-
-
-
-
-
-
-
+(provide 'init-better-default)
