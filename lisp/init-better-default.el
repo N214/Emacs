@@ -143,4 +143,14 @@
            "2 sec" nil 'delete-windows-on
            (get-buffer-create "*compilation*"))
           (message "No Compilation Errors!")))))
+<<<<<<< HEAD
 (provide 'init-better-default)
+=======
+
+
+
+
+
+
+
+>>>>>>> e48178e... My commit message
