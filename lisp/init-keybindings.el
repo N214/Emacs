@@ -22,6 +22,7 @@
 
 ;;---------------------------------init-file
 (global-set-key (kbd "<f2>") 'open-init)
+(global-set-key (kbd "<f3>") 'list-packages)
 
 ;; Indent all or select
 (global-set-key (kbd "C-M-,") 'indent-region-or-buffer)
@@ -79,15 +80,20 @@
     (evil-define-key 'normal package-menu-mode-map (kbd "x") #'package-menu-execute)))
 
 ;;Spotify
-(global-set-key (kbd "C-c s s") 'helm-spotify-plus) 
+(global-set-key (kbd "C-c s s") 'helm-spotify-plus)
 (global-set-key (kbd "C-c s f") 'helm-spotify-plus-next)
 (global-set-key (kbd "C-c s b") 'helm-spotify-plus-previous)
-(global-set-key (kbd "C-c s p") 'helm-spotify-plus-toggle-play-pause) 
+(global-set-key (kbd "C-c s p") 'helm-spotify-plus-toggle-play-pause)
 
 ;;window resize
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'enlarge-window)
 (global-set-key (kbd "S-C-<up>") 'shrink-window)
+
+;;evil tabs
+
+(global-set-key (kbd "C-c n") 'elscreen-create)
+(global-set-key (kbd "C-c l") 'elscreen-select-and-goto)
 
 (provide 'init-keybindings)

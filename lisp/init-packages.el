@@ -280,5 +280,8 @@
 ;;---------------------evil-magit
 (require 'evil-magit)
 
+;;--------------------evil-tabs
+(global-evil-tabs-mode t)
+(elscreen-toggle-display-tab)
 
 (provide 'init-packages)

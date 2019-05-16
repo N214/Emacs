@@ -3,7 +3,7 @@
 ;;(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (menu-bar-mode -1)
-
+(toggle-scroll-bar -1)
 ;;(global-linum-mode t)
 (global-auto-revert-mode t)
 
@@ -143,5 +143,7 @@
            "2 sec" nil 'delete-windows-on
            (get-buffer-create "*compilation*"))
           (message "No Compilation Errors!")))))
+
+;;--------------------------------------------------copy paste
 
 (provide 'init-better-default)
