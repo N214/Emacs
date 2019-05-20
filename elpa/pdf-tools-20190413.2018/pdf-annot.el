@@ -64,7 +64,8 @@ Implement and describe basic org example."
 (defcustom pdf-annot-default-markup-annotation-properties nil
   "Alist of initial properties for new markup annotations."
   :group 'pdf-annot
-  :type '(alist :key-type symbol :value-type sexp))
+  :type '(alist :key-type symbol :value-type sexp)
+  (popup-is-open . nil))
 
 (make-obsolete-variable 'pdf-annot-default-text-annotation-properties
                         'pdf-annot-default-annotation-properties

@@ -222,14 +222,15 @@
 ;;--------------------pdf-tools
 
 (use-package pdf-tools
- :pin manual ;; manually update
- :config
+  :mode ("\\.pdf$" . pdf-view-mode)
+  :pin manual ;; manually update
+  :config
  ;; initialise
  (pdf-tools-install)
  ;; open pdfs scaled to fit page
  (setq-default pdf-view-display-size 'fit-page)
  ;; automatically annotate highlights
- (setq pdf-annot-activate-created-annotations t)
+ ;(setq pdf-annot-activate-created-annotations 0)
  ;; use normal isearch
  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
  ;; turn off cua so copy works
@@ -240,7 +241,12 @@
  ;; keyboard shortcuts
  (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
  (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
- (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete))
+ (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete)
+
+  (with-eval-after-load 'evil
+      (progn
+        (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
+        (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
 
 ;;--------------------undo tree
 (use-package undo-tree
@@ -283,5 +289,11 @@
 ;;--------------------evil-tabs
 (global-evil-tabs-mode t)
 (elscreen-toggle-display-tab)
+
+;;-----------------------emms player
+(require 'emms-setup)
+(require 'emms-player-mpv)
+(emms-standard)
+(emms-default-players)
 
 (provide 'init-packages)
