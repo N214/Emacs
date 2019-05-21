@@ -68,6 +68,7 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader ",")
 (evil-leader/set-key "f" 'ranger)
+(evil-leader/set-key "t" 'shell-pop)
 
 ;;----------ivy-mode
 (ivy-mode 1)
@@ -293,7 +294,32 @@
 ;;-----------------------emms player
 (require 'emms-setup)
 (require 'emms-player-mpv)
-(emms-standard)
+(emms-standard) 
 (emms-default-players)
+
+;;-------------------------vterm
+(add-to-list 'load-path "/home/n214/.emacs.d/elpa/emacs-libvterm")
+(require 'vterm)
+
+;;------------------------shell pop
+(use-package shell-pop
+  :config
+  (defun shell-pop--set-exit-action ()
+    (if (string= shell-pop-internal-mode "ansi-term")
+        (add-hook 'eshell-exit-hook 'shell-pop--kill-and-delete-window nil t)
+      (let ((process (get-buffer-process (current-buffer))))
+        (when process
+          (set-process-sentinel
+           process
+           (lambda (_proc change)
+             (when (string-match-p "\\(?:finished\\|exited\\)" change)
+               (if (one-window-p)
+                   (switch-to-buffer shell-pop-last-buffer)
+                 (kill-buffer-and-window)))))))))
+
+  (custom-set-variables
+   '(shell-pop-shell-type (quote ("vterm" "*vterm*" (lambda nil (vterm)))))
+   '(shell-pop-term-shell "/usr/bin/zsh")
+   '(shell-pop-window-position "right")))
 
 (provide 'init-packages)

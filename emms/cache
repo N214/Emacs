@@ -1,0 +1,2 @@
+;;; .emms-cache -*- mode: emacs-lisp; coding: utf-8; -*-
+(puthash "/home/n214/Downloads/game.of.thrones.s08e06.1080p.web.h264-memento.mkv" '(*track* (type . file) (name . "/home/n214/Downloads/game.of.thrones.s08e06.1080p.web.h264-memento.mkv") (metadata) (info-mtime 23778 34627 276023 803000) (last-played 23778 56303 692615 134000) (play-count . 2) (info-playing-time . 4765) (info-playing-time-min . 79) (info-playing-time-sec . 25)) emms-cache-db)
