@@ -261,24 +261,83 @@
   "https://duckduckgo.com/?q=%s"
   :keybinding "d")) ;;C-x / d 
 
-;;------------------elpy
-(use-package elpy
-  :ensure t
-  :init
-  (elpy-enable)
-  (exec-path-from-shell-copy-env "PATH")
-  (setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
-  (with-eval-after-load 'python
-  (remove-hook 'python-mode-hook #'python-setup-shell)))
+;;-----------------------python-mode
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode)
+  :config
+  (add-hook 'python-mode-hook
+	    (defun hooks()
+	      (smartparens-mode 1)
+              (rainbow-delimiters-mode 1)
+	      (company-mode 1)
+              (yas-minor-mode 1)
+	      (highlight-indent-guides-mode 1)
+              (anaconda-mode 1)))
+
+  (require 'flycheck-pyflakes)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+
+  (setq warning-suppress-types '((python)
+                                 (emacs)))
+  
+  (use-package anaconda-mode
+    :ensure t
+    :bind ("C-c C-d" . anaconda-mode-show-doc)
+    :config
+    (setq python-shell-interpreter "ipython"))
+
+  (use-package company-anaconda
+    :ensure t
+    :init
+    (eval-after-load "company"
+      '(add-to-list 'company-backends '(company-anaconda :with company-capf))))
+
+  (use-package highlight-indent-guides
+    :ensure t
+    :config
+    (setq highlight-indent-guides-method 'character)))
+
+
+;;------------------elpy for python completion
+;;(use-package elpy
+;;  :ensure t
+;;  :init
+;;  (elpy-enable)
+;;  (exec-path-from-shell-copy-env "PATH")
+;;  (setq python-shell-interpreter "ipython"
+;;      python-shell-interpreter-args "-i --simple-prompt")
+;;  (with-eval-after-load 'python
+;;  (remove-hook 'python-mode-hook #'python-setup-shell)))
+
 ;;------------------flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;;(when (require 'flycheck nil t)
+ ;; (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  ;;(add-hook 'elpy-mode-hook 'flycheck-mode))
 
 ;;-------------------pip8
-(require 'py-autopep8)
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+;;(require 'py-autopep8)
+;;(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
+
+;;---------------------ispell hunderspell
+
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+(autoload 'flyspell-delay-command "flyspell" "Delay on command." t)
+(autoload 'tex-mode-flyspell-verify "flyspell" "" t) 
+
+(dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+
+
+(defun flymake-get-tex-args (file-name)
+    (list "chktex" (list "-q" "-v0" file-name)))
+(require 'flyspell-lazy)
+(flyspell-lazy-mode 1)
 
 ;;---------------------symon
   (require 'symon)
@@ -334,6 +393,7 @@
               (rainbow-delimiters-mode)
               (company-mode)
               (smartparens-mode)
+              (flyspell-mode)
               (turn-on-reftex)
               (setq reftex-plug-into-AUCTeX t)
               (reftex-isearch-minor-mode)
@@ -345,6 +405,33 @@
   (setq TeX-view-program-selection '((output-pdf "pdf-tools"))
 	TeX-source-correlate-start-server t)
   (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
+
+
+;;----------------------reftex
+(use-package reftex
+  :ensure t
+  :defer t
+  :config
+  (setq reftex-cite-prompt-optional-args t)); Prompt for empty optional arguments in cite
+
+
+;;----------------------ivy bibtex
+(use-package ivy-bibtex
+  :ensure t
+  :bind ("C-c b b" . ivy-bibtex)
+  :config
+  (setq bibtex-completion-bibliography 
+        '("/home/n214/Dropbox/MA1/Thesis/Papers/biblio.bib")
+        bibtex-completion-library-path
+        '("/home/n214/Dropbox/MA1/Thesis/Papers/"))
+
+  ;; using bibtex path reference to pdf file
+  (setq bibtex-completion-pdf-field "File")
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
+
+(setq bibtex-completion-pdf-open-function
+      (lambda (fpath)
+	(call-process "zathura" nil 0 nil fpath)))
 
 
 (provide 'init-packages)
