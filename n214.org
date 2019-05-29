@@ -25,6 +25,11 @@
 (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
 (load-file custom-file)
 
+(defun load-init ()
+    "Reload init file"
+    (interactive)
+    (load-file "~/.emacs.d/n214.el"))
+
 ;;(require 'init-benchmarking)
 
 (setq package-enable-at-startup nil)

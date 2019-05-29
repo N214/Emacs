@@ -3,9 +3,10 @@
 ;;(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (menu-bar-mode -1)
+(electric-indent-mode)
 (toggle-scroll-bar -1)
-;;(global-linum-mode t)
 (global-auto-revert-mode t)
+(delete-selection-mode t)
 
 (require 'recentf) ;;We have a file named recentf and we need this file to enalble recentf
 (recentf-mode 1)
@@ -24,7 +25,22 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
-(delete-selection-mode t)
+
+;;Use package config
+(eval-when-compile
+  (require 'use-package))
+
+(require 'diminish)
+(require 'bind-key)
+
+;; Package
+;; Impossible to load theme on other file
+
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode))
+
 
 ;;--------------------------------------Snippets
 
@@ -144,6 +160,21 @@
            (get-buffer-create "*compilation*"))
           (message "No Compilation Errors!")))))
 
-;;--------------------------------------------------copy paste
+;;--------------------------------------------------defun
+
+(defun load-init ()
+    "Reload init file"
+    (interactive)
+    (load-file "~/.emacs.d/n214.el"))
+
+(defun call-and-update-ex (fun)
+  "Calls the function and updates `evil-ex-history' with the result"
+  (interactive)
+  (setq evil-ex-history (cons (format "e %s" (funcall fun)) evil-ex-history)))
+
+(defun controlz ()
+  (interactive)
+  (when (eq (display-graphic-p) nil)
+    (suspend-frame)))
 
 (provide 'init-better-default)

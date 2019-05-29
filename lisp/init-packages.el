@@ -343,8 +343,6 @@
   (require 'symon)
   (symon-mode t)
 
-;;---------------------evil-magit
-(require 'evil-magit)
 
 ;;--------------------evil-tabs
 (global-evil-tabs-mode t)
@@ -433,5 +431,7 @@
       (lambda (fpath)
 	(call-process "zathura" nil 0 nil fpath)))
 
+(use-package magit ; TODO key bindings and such
+  :ensure t)
 
 (provide 'init-packages)
