@@ -2,9 +2,8 @@
   ("--3way"))
  (magit-cherry-pick
   ("--ff"))
- (magit-commit
-  ("--all")
-  nil)
+ (magit-commit nil
+	       ("--all"))
  (magit-diff
   (("--" "lisp/init-better-default.el"))
   (("--" "lisp/init-packages.el")))

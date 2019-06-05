@@ -4,13 +4,21 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (menu-bar-mode -1)
 (electric-indent-mode)
-(toggle-scroll-bar -1)
 (global-auto-revert-mode t)
 (delete-selection-mode t)
 
 (require 'recentf) ;;We have a file named recentf and we need this file to enalble recentf
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
+
+;; Disable scroll bar
+(defun my/disable-scroll-bars (frame)
+  (modify-frame-parameters frame
+                           '((vertical-scroll-bars . nil)
+                             (horizontal-scroll-bars . nil))))
+(add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
+
+
 
 ;; ----------------------------
 (define-advice show-paren-function (:around (fn) fix-show-paren-function)
@@ -24,6 +32,7 @@
 
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(windmove-default-keybindings)
 
 
 ;;Use package config
@@ -38,7 +47,7 @@
 
 (use-package which-key
   :ensure t
-  :init
+  :config
   (which-key-mode))
 
 
@@ -103,6 +112,7 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
+(defalias 'list-buffers 'ibuffer-list-buffers)
 ;; with this line, C-x C-j open the current dir in dired mode
 (require 'dired-x)
 
@@ -176,5 +186,21 @@
   (interactive)
   (when (eq (display-graphic-p) nil)
     (suspend-frame)))
+
+;;
+(defun move-buffer-file (dir)
+ "Moves both current buffer and file it's visiting to DIR." (interactive "DNew directory: ")
+ (let* ((name (buffer-name))
+	 (filename (buffer-file-name))
+	 (dir
+	 (if (string-match dir "\\(?:/\\|\\\\)$")
+	 (substring dir 0 -1) dir))
+	 (newname (concat dir "/" name)))
+
+ (if (not filename)
+	(message "Buffer '%s' is not visiting a file!" name)
+ (progn 	(copy-file filename newname 1) 	(delete-file filename) 	(set-visited-file-name newname) 	(set-buffer-modified-p nil) 	t)))) 
+
+
 
 (provide 'init-better-default)

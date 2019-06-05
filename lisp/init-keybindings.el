@@ -38,7 +38,7 @@
 
 ;; enable this if you want `swiper' to use it
 ;; (setq search-default-mode #'char-fold-to-regexp)
-(global-set-key "\C-s" 'swiper)
+(global-set-key "\C-s" 'counsel-grep-or-swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
@@ -96,4 +96,7 @@
 (global-set-key (kbd "C-c n") 'elscreen-create)
 (global-set-key (kbd "C-c l") 'elscreen-select-and-goto)
 
+;;ace windows
+;;(global-set-key (kbd "C-x o") 'ace-window)
 (provide 'init-keybindings)
+

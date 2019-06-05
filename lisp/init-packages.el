@@ -434,4 +434,18 @@
 (use-package magit ; TODO key bindings and such
   :ensure t)
 
+;;-----------------------Ace window
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    ))
+
+;;-----------------------ox-reveal
+(use-package ox-reveal
+  :ensure ox-reveal)
+(setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
+(setq org-reveal-mathjax t)
+
 (provide 'init-packages)

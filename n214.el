@@ -39,8 +39,9 @@
 
 ;; Package
 ;; Impossible to load theme on other file
-(load-theme 'monokai t)
-
+;;(load-theme 'monokai t)
+(require 'moe-theme)
+(moe-light)
 
 
 (use-package which-key
