@@ -214,11 +214,13 @@
 (require 'org-pomodoro)
 
 ;;--------------------yasnippets
-;;(use-package yasnippet
-;;  :ensure t
-;;  :config
-;;  (yas-reload-all)
-;;  (add-hook 'prog-mode-hook #'yas-minor-mode))
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-reload-all)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
 
 ;;--------------------pdf-tools
 
@@ -265,6 +267,8 @@
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
+  :init
+  (add-hook 'python-mode-hook 'flycheck-mode)
   :config
   (add-hook 'python-mode-hook
 	    (defun hooks()
@@ -276,29 +280,30 @@
               (anaconda-mode 1)))
 
   (require 'flycheck-pyflakes)
-  (add-hook 'python-mode-hook 'flycheck-mode)
   (add-to-list 'flycheck-disabled-checkers 'python-flake8)
   (add-to-list 'flycheck-disabled-checkers 'python-pylint)
 
   (setq warning-suppress-types '((python)
-                                 (emacs)))
-  
-  (use-package anaconda-mode
+                                 (emacs))))
+
+(use-package anaconda-mode
     :ensure t
     :bind ("C-c C-d" . anaconda-mode-show-doc)
     :config
     (setq python-shell-interpreter "ipython"))
 
-  (use-package company-anaconda
+(use-package company-anaconda
     :ensure t
+    :after (python-mode)
     :init
     (eval-after-load "company"
       '(add-to-list 'company-backends '(company-anaconda :with company-capf))))
 
-  (use-package highlight-indent-guides
+(use-package highlight-indent-guides
     :ensure t
+    :after (python-mode)
     :config
-    (setq highlight-indent-guides-method 'character)))
+    (setq highlight-indent-guides-method 'character))
 
 
 ;;------------------elpy for python completion
