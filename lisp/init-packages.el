@@ -60,13 +60,30 @@
   :config
   (global-evil-leader-mode)
   (evil-leader/set-leader ",")        
-  (evil-leader/set-key "f" 'ranger)   
-  (evil-leader/set-key "t" 'shell-pop)
-  (evil-leader/set-key "q" 'kill-buffer-and-window))
+  (evil-leader/set-key
+    "f" 'ranger
+    "t" 'shell-pop
+    "q" 'kill-buffer-and-window
+    "w" 'save-buffer
+    "b" 'mode-line-other-buffer
+    "k" 'kill-buffer
+    "m" 'helm-mini
+    "e" 'iedit-mode
+    "a" 'org-agenda
+    "g"  'magit-status
+    "''" 'org-edit-src-exit
+
+    ))
 
 (use-package evil
   :ensure t
+    :bind
+  (:map evil-motion-state-map
+        ("C-u" . evil-scroll-up))
   :init
+    (setq evil-want-C-u-scroll t
+        evil-want-C-i-jump t
+        evil-want-Y-yank-to-eol t)
   (setq evil-search-module 'evil-search)
   (setq evil-ex-complete-emacs-commands nil)
   (setq evil-vsplit-window-right t)
@@ -76,7 +93,36 @@
   (setq evil-maybe-remove-spaces t)
   :config
   (evil-mode 1)
-  (evil-escape-mode 1))
+  (evil-escape-mode 1)
+  (setq evil-split-window-below t
+        evil-vsplit-window-right t)
+  (setq-default evil-symbol-word-search t)
+  (custom-set-variables '(evil-search-module (quote evil-search)))
+  (evil-ex-define-cmd "re[load]" 'load-init) ; Custom reload command
+  (evil-ex-define-cmd "Q" 'save-buffers-kill-terminal) ; For typos
+  (add-to-list 'evil-emacs-state-modes 'vterm-mode)
+  (general-define-key
+   :states 'visual
+   "<" (lambda ()
+         (interactive)
+         (evil-shift-left (region-beginning) (region-end))
+         (evil-normal-state)
+         (evil-visual-restore))
+   ">" (lambda ()
+         (interactive)
+         (evil-shift-right (region-beginning) (region-end))
+         (evil-normal-state)
+         (evil-visual-restore)))
+  (general-define-key
+   :states 'normal
+   "C-z"  'controlz
+   "C-l"  'evil-ex-nohighlight)
+  )
+
+(use-package evil-lion
+  :ensure t
+  :config
+  (evil-lion-mode))
 
 (setq-default evil-escape-key-sequence "jk")
 
@@ -464,5 +510,6 @@
   :ensure ox-reveal)
 (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
 (setq org-reveal-mathjax t)
+;;--------------------------------------------------------------------
 
 (provide 'init-packages)

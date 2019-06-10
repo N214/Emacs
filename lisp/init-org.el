@@ -32,7 +32,4 @@
 
 ;; org
 
-
-
-
 (provide 'init-org)

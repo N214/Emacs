@@ -42,15 +42,9 @@
 (require 'diminish)
 (require 'bind-key)
 
-;; Package
-;; Impossible to load theme on other file
-
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
-
-
+;; C-c o in helm for vertical split
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
 ;;--------------------------------------Snippets
 
 (abbrev-mode t)
