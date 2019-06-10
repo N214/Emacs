@@ -5,3 +5,4 @@
 (org-babel-load-file (expand-file-name "n214.org" user-emacs-directory))
 
 
+(put 'narrow-to-region 'disabled nil)

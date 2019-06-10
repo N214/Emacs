@@ -18,7 +18,7 @@
 (global-set-key (kbd "C-c k") 'counsel-ag)
 (global-set-key (kbd "C-x l") 'counsel-locate)
 ;;(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-;;(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+(define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 ;;---------------------------------init-file
 (global-set-key (kbd "<f2>") 'open-init)

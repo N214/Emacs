@@ -37,6 +37,13 @@
   (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
+
+;;---------------Which-key
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
 ;;---------popwin mode
 (require 'popwin)
 (popwin-mode t)
@@ -47,6 +54,15 @@
 (linum-relative-toggle)
 
 ;;---------evil-mode
+
+(use-package evil-leader
+  :ensure t
+  :config
+  (global-evil-leader-mode)
+  (evil-leader/set-leader ",")        
+  (evil-leader/set-key "f" 'ranger)   
+  (evil-leader/set-key "t" 'shell-pop)
+  (evil-leader/set-key "q" 'kill-buffer-and-window))
 
 (use-package evil
   :ensure t
@@ -64,11 +80,7 @@
 
 (setq-default evil-escape-key-sequence "jk")
 
-;;---------evil leader
-(global-evil-leader-mode)
-(evil-leader/set-leader ",")
-(evil-leader/set-key "f" 'ranger)
-(evil-leader/set-key "t" 'shell-pop)
+;;(evil-leader/set-ket "d" 'kill-buffer-and-window)
 
 ;;----------ivy-mode
 (ivy-mode 1)
