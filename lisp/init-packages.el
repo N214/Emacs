@@ -62,17 +62,20 @@
   (evil-leader/set-leader ",")        
   (evil-leader/set-key
     "f" 'ranger
-    "t" 'shell-pop
+    "s" 'shell-pop
     "q" 'kill-buffer-and-window
     "w" 'save-buffer
+    "r" 'transpose-frame
+    "R" 'load-init
     "b" 'mode-line-other-buffer
     "k" 'kill-buffer
     "m" 'helm-mini
     "e" 'iedit-mode
+    "n" 'narrow-or-widen-dwim
     "a" 'org-agenda
     "g"  'magit-status
     "''" 'org-edit-src-exit
-
+    "TAB" 'elscreen-next
     ))
 
 (use-package evil
@@ -94,6 +97,7 @@
   :config
   (evil-mode 1)
   (evil-escape-mode 1)
+  (evil-set-initial-state 'pdf-view-mode 'normal)
   (setq evil-split-window-below t
         evil-vsplit-window-right t)
   (setq-default evil-symbol-word-search t)
@@ -344,6 +348,20 @@
   (setq warning-suppress-types '((python)
                                  (emacs))))
 
+(add-hook 'python-mode-hook
+          (lambda ()
+            (pretty-symbol-push-default)
+            (push '("def"    . ?ƒ) prettify-symbols-alist)
+            (push '("sum"    . ?Σ) prettify-symbols-alist)
+            (push '("**2"    . ?²) prettify-symbols-alist)
+            (push '("**3"    . ?³) prettify-symbols-alist)
+            (push '("None"   . ?∅) prettify-symbols-alist)
+            (push '("in"     . ?∈) prettify-symbols-alist)
+            (push '("not in" . ?∉) prettify-symbols-alist)
+            (push '("return" . ?➡) prettify-symbols-alist)
+            (prettify-symbols-mode t)))
+
+
 (use-package anaconda-mode
     :ensure t
     :bind ("C-c C-d" . anaconda-mode-show-doc)
@@ -505,11 +523,35 @@
     (global-set-key [remap other-window] 'ace-window)
     ))
 
-;;-----------------------ox-reveal
+;;-----------------------ox-reveal slides
 (use-package ox-reveal
   :ensure ox-reveal)
 (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
 (setq org-reveal-mathjax t)
-;;--------------------------------------------------------------------
+
+;;--------------------------------------------------------rotate windows
+(use-package transpose-frame
+  :ensure t
+  :init) 
+
+;;--------------------------------------------------------
+(use-package column-marker
+  :ensure nil
+  :config
+  (add-hook 'prog-mode-hook (lambda () (interactive) (column-marker-1 81)))
+  (custom-set-faces
+   '(column-marker-1 ((t (:background "dim gray"))))))
+
+;;--------------------------------------------------------org mode bullets
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package ag
+  :ensure t
+  :bind (:map ag-mode-map
+	      ("Q" . ag-kill-buffers-and-window)))
+
 
 (provide 'init-packages)

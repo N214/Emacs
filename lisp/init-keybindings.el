@@ -31,7 +31,7 @@
 (global-set-key (kbd "TAB") 'hippie-expand)
 
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
-(global-set-key (kbd "C-h C-f") 'find-function)
+;;(global-set-key (kbd "C-h C-f") 'find-function)
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-f") 'find-function-on-key)
 

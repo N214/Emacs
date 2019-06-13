@@ -42,9 +42,11 @@
 (require 'diminish)
 (require 'bind-key)
 
-;; C-c o in helm for vertical split
-(setq split-height-threshold nil)
-(setq split-width-threshold 0)
+;; Package
+;; Impossible to load theme on other file
+
+
+
 ;;--------------------------------------Snippets
 
 (abbrev-mode t)
@@ -195,6 +197,17 @@
 	(message "Buffer '%s' is not visiting a file!" name)
  (progn 	(copy-file filename newname 1) 	(delete-file filename) 	(set-visited-file-name newname) 	(set-buffer-modified-p nil) 	t)))) 
 
+(defvar linux? (eq system-type 'gnu/linux)
+  "Are we on linux?")
 
+;;----------------------------------------------------------vim scrolloff
+(setq scroll-margin 10
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+
+
+(customize-set-variable 'tramp-verbose 6 "Enable remote command traces")
+(customize-set-variable 'tramp-default-method "sshx")
 
 (provide 'init-better-default)

@@ -42,12 +42,3 @@
 ;;(load-theme 'monokai t)
 (require 'moe-theme)
 (moe-light)
-
-
-(use-package which-key
-  :ensure t
-  :init
-  (which-key-mode))
-
-
-(electric-indent-mode)

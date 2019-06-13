@@ -26,10 +26,24 @@
 
 (custom-set-variables
  '(company-idle-delay 0.1)
- '(company-minimum-prefix-length 1)
-
- )
+ '(company-minimum-prefix-length 1))
 
 ;; org
+(defvar org-ellipsis "⤵"
+  "The indicates if an `org-mode' tree can be expanded") 
+
+(defvar project-path
+  (cond
+   (linux? "~/Projects/")
+   (:else nil))
+  "Path to my projects directory")
+
+(defvar org-dropbox-path
+  (cond
+   (linux?
+    "~/Dropbox/org/")
+   (:else nil))
+  "Path to my org files inside dropbox")
+
 
 (provide 'init-org)
