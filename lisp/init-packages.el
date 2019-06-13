@@ -44,6 +44,11 @@
   :config
   (which-key-mode))
 
+;;-------------spotify-helm
+(use-package helm-spotify-plus
+  :ensure t
+  :config)
+
 ;;---------popwin mode
 (require 'popwin)
 (popwin-mode t)
