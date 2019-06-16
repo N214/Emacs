@@ -435,11 +435,24 @@
 (elscreen-toggle-display-tab)
 
 ;;-----------------------emms player
-(require 'emms-setup)
-(require 'emms-player-mpv)
-(emms-standard) 
-(emms-default-players)
+;;(require 'emms-setup)
+;;(require 'emms-player-mpv)
+;;(emms-standard) 
+;;(emms-default-players)
 
+(use-package emms
+    :ensure t
+    :config
+    (emms-all)
+    (emms-default-players)
+    (setq emms-player-list '(emms-player-mpv))
+    (setq emms-source-file-default-directory "~/Music/")
+    (setq emms-playlist-buffer-name "*Music*")
+    (setq emms-info-asynchronously t)
+    (require 'emms-mode-line)
+    (emms-mode-line 1)
+    (require 'emms-playing-time)
+    (emms-playing-time 1))
 ;;-------------------------vterm
 (add-to-list 'load-path "/home/n214/.emacs.d/elpa/emacs-libvterm")
 (require 'vterm)

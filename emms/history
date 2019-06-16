@@ -1,9 +1,9 @@
 ;;; emms history -*- mode: emacs-lisp; coding: utf-8; -*-
 (
 ;; active playlist
-" *temp*"
+" *EMMS Playlist*"
 ;; playlists: ((BUFFER_NAME SELECT_POSITION TRACKS) ...)
-nil
+((" *EMMS Playlist*" 1 ((*track* (type . file) (name . "/home/n214/Downloads/STAT-S-406_-_26_mars_2019_07h59_HQ_video.m4v") (metadata) (info-mtime 23714 11635 107787 978000) (last-played 23814 21116 346644 286000) (play-count . 2) (info-playing-time . 6365) (info-playing-time-min . 106) (info-playing-time-sec . 5)))))
 ;; play method
 ((emms-repeat-track) (emms-repeat-playlist))
 )
