@@ -39,6 +39,15 @@
 
 ;; Package
 ;; Impossible to load theme on other file
-;;(load-theme 'monokai t)
-(require 'moe-theme)
-(moe-light)
+;(load-theme 'monokai t)
+(load-theme 'doom-molokai)
+;(require 'moe-theme)
+;(moe-light)
+
+;(use-package ample-theme
+;  :init (progn (load-theme 'ample t t)
+;               (load-theme 'ample-flat t t)
+;               (load-theme 'ample-light t t)
+;               (enable-theme 'ample))
+;  :defer t
+;  :ensure t)

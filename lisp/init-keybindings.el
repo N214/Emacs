@@ -3,7 +3,7 @@
 (global-set-key (kbd "C-x b") #'helm-mini)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
-
+(define-key helm-find-files-map "\t" 'helm-execute-persistent-action)
 ;;-------------------------smex
 
 ;;  (global-set-key (kbd "M-x") 'smex)
@@ -23,12 +23,14 @@
 ;;---------------------------------init-file
 (global-set-key (kbd "<f2>") 'open-init)
 (global-set-key (kbd "<f3>") 'list-packages)
+(global-set-key (kbd "<f4>") 'ssh)
+(global-set-key [f5] 'vterm-toggle-cd)
 
 ;; Indent all or select
 (global-set-key (kbd "C-M-,") 'indent-region-or-buffer)
 
 ;;path auto complete
-(global-set-key (kbd "TAB") 'hippie-expand)
+;(global-set-key (kbd "TAB") 'hippie-expand)
 
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 ;;(global-set-key (kbd "C-h C-f") 'find-function)
@@ -36,11 +38,10 @@
 (global-set-key (kbd "C-h C-f") 'find-function-on-key)
 
 
-;; enable this if you want `swiper' to use it
+;; enable this if you want `swiper to use it
 ;; (setq search-default-mode #'char-fold-to-regexp)
 (global-set-key "\C-s" 'counsel-grep-or-swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 
@@ -96,7 +97,16 @@
 (global-set-key (kbd "C-c n") 'elscreen-create)
 (global-set-key (kbd "C-c l") 'elscreen-select-and-goto)
 
-;;ace windows
-;;(global-set-key (kbd "C-x o") 'ace-window)
+;;sshx
+
+(defun ssh()
+  (interactive)
+  (find-file "/sshx:vps|sudo:n214@vps:/"))
+
+;Switch to next vterm buffer
+(define-key vterm-mode-map (kbd "s-n")   'vterm-toggle-forward)
+;Switch to previous vterm buffer
+(define-key vterm-mode-map (kbd "s-p")   'vterm-toggle-backward)
+
 (provide 'init-keybindings)
 

@@ -13,8 +13,8 @@
  (rear-context-string . ".7M 04-12 16:28 ")
  (position . 291))
 ("org-capture-last-stored"
- (filename . "~/.emacs.d/gtd.org")
- (front-context-string . "** TODO [#B]Clea")
- (rear-context-string . "acs video ep6 \n\n")
- (position . 45))
+ (filename . "~/Dropbox/orgfiles/gcal.org")
+ (front-context-string . "* test bis bis\n\n")
+ (rear-context-string)
+ (position . 1))
 )

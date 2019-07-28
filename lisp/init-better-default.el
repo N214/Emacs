@@ -1,11 +1,16 @@
+;;Default setting for a better Emacs
+(use-package company
+:ensure t
+:config
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+(global-company-mode t))
 
-;; Enable global company mode
-;;(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
 (menu-bar-mode -1)
 (electric-indent-mode)
 (global-auto-revert-mode t)
 (delete-selection-mode t)
+(setq x-select-enable-clipboard t)
 
 (require 'recentf) ;;We have a file named recentf and we need this file to enalble recentf
 (recentf-mode 1)
@@ -44,6 +49,7 @@
 
 ;; Package
 ;; Impossible to load theme on other file
+
 
 
 
@@ -206,8 +212,20 @@
       scroll-conservatively 10000
       scroll-preserve-screen-position 1)
 
-
+;;---------------------------------------------------------sshx
 (customize-set-variable 'tramp-verbose 6 "Enable remote command traces")
 (customize-set-variable 'tramp-default-method "sshx")
 
+(defun vps()
+    (interactive)
+    (let ((default-directory "/sshx:n214@vps:"))
+      ()))
+
+
+
+
+;;(add-hook '(vterm-mode-hook
+    ;;(lambda () (setq global-hl-line-mode -1)))
+
 (provide 'init-better-default)
+

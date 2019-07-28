@@ -5,6 +5,9 @@
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+
+ ; (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+ ;                        ("melpa" . "http://elpa.emacs-china.org/melpa/")))
   )
 
    (require 'cl)
@@ -44,10 +47,21 @@
   :config
   (which-key-mode))
 
+;;---------------Smartparens
+
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :config
+  (progn
+    (require 'smartparens-config)
+    (smartparens-global-mode 1)))
+
 ;;-------------spotify-helm
 (use-package helm-spotify-plus
   :ensure t
   :config)
+
 
 ;;---------popwin mode
 (require 'popwin)
@@ -83,6 +97,7 @@
     "TAB" 'elscreen-next
     ))
 
+
 (use-package evil
   :ensure t
     :bind
@@ -99,6 +114,8 @@
   (setq evil-shift-round nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-maybe-remove-spaces t)
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (evil-escape-mode 1)
@@ -133,6 +150,13 @@
   :config
   (evil-lion-mode))
 
+;(use-package evil-collection
+;  :after evil
+;  :ensure t
+;  :init
+;  :config
+;  (evil-collection-init))
+
 (setq-default evil-escape-key-sequence "jk")
 
 ;;(evil-leader/set-ket "d" 'kill-buffer-and-window)
@@ -163,6 +187,8 @@
 (require 'helm-config)
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 30)
+(setq helm-ff-toggle-auto-update t)
+(setq helm-ff-auto-update-initial-value t)
 (helm-autoresize-mode 1)
 (helm-mode 1)
 
@@ -330,7 +356,29 @@
   "https://duckduckgo.com/?q=%s"
   :keybinding "d")) ;;C-x / d 
 
+;;-----------------------jedi-mode
+(use-package jedi
+:ensure t
+:init
+(add-hook 'python-mode-hook 'jedi:setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup))
+
 ;;-----------------------python-mode
+
+(use-package anaconda-mode
+    :ensure t
+    :bind ("C-c C-d" . anaconda-mode-show-doc)
+    :config
+    (setq python-shell-interpreter "ipython"))
+
+
+(use-package company-anaconda
+    :ensure t
+    :after (python-mode)
+    :init
+    (eval-after-load "company"
+      '(add-to-list 'company-backends '(company-anaconda :with company-capf))))
+
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
@@ -367,18 +415,9 @@
             (prettify-symbols-mode t)))
 
 
-(use-package anaconda-mode
-    :ensure t
-    :bind ("C-c C-d" . anaconda-mode-show-doc)
-    :config
-    (setq python-shell-interpreter "ipython"))
+(eval-after-load "company"
+ '(add-to-list 'company-backends 'company-anaconda))
 
-(use-package company-anaconda
-    :ensure t
-    :after (python-mode)
-    :init
-    (eval-after-load "company"
-      '(add-to-list 'company-backends '(company-anaconda :with company-capf))))
 
 (use-package highlight-indent-guides
     :ensure t
@@ -386,6 +425,15 @@
     :config
     (setq highlight-indent-guides-method 'character))
 
+(use-package company-jedi
+:ensure t
+:config
+(add-hook 'python-mode-hook 'jedi:setup))
+
+(defun my/python-mode-hook ()
+(add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
 
 ;;------------------elpy for python completion
 ;;(use-package elpy
@@ -416,6 +464,10 @@
 
 (dolist (hook '(text-mode-hook))
     (add-hook hook (lambda () (flyspell-mode 1))))
+
+(dolist (hook '(org-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 
@@ -455,7 +507,28 @@
     (emms-playing-time 1))
 ;;-------------------------vterm
 (add-to-list 'load-path "/home/n214/.emacs.d/elpa/emacs-libvterm")
-(require 'vterm)
+(add-to-list 'load-path "/home/n214/.emacs.d/elpa/emacs-libvterm-tog")
+
+(require 'vterm-toggle)
+(use-package tramp-term
+  :ensure t)
+
+(use-package vterm
+  :config
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (setq global-hl-line-mode nil))))
+
+
+(setq vterm-toggle-fullscreen-p nil)
+(setq display-buffer-alist
+      '(
+        ("vterm.*"
+         (display-buffer-reuse-window display-buffer-in-side-window)
+         (reusable-frames . visible)
+         (side . bottom)
+         (window-height . 0.3)
+         )))
 
 ;;------------------------shell pop
 (use-package shell-pop
@@ -485,18 +558,18 @@
   :ensure auctex
   :config
   (setq TeX-auto-save t)
-  (add-hook 'LaTeX-mode-hook
+  (add-hook 'latex-mode-hook
             (lambda ()
               (rainbow-delimiters-mode)
               (company-mode)
               (smartparens-mode)
               (flyspell-mode)
               (turn-on-reftex)
-              (setq reftex-plug-into-AUCTeX t)
+              (setq reftex-plug-into-auctex t)
               (reftex-isearch-minor-mode)
-              (setq TeX-PDF-mode t)
-              (setq TeX-source-correlate-method 'synctex)
-              (setq TeX-source-correlate-start-server t)))
+              (setq tex-pdf-mode t)
+              (setq tex-source-correlate-method 'synctex)
+              (setq tex-source-correlate-start-server t)))
   (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
 	    #'TeX-revert-document-buffer)
   (setq TeX-view-program-selection '((output-pdf "pdf-tools"))
@@ -571,5 +644,14 @@
   :bind (:map ag-mode-map
 	      ("Q" . ag-kill-buffers-and-window)))
 
+(use-package wgrep
+  :ensure t)
+
+(use-package wgrep-ag
+  :ensure t)
+;;--------------------------------------------------------org alert
+
+(use-package org-alert
+  :config)
 
 (provide 'init-packages)
