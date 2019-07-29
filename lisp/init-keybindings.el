@@ -108,5 +108,8 @@
 ;Switch to previous vterm buffer
 (define-key vterm-mode-map (kbd "s-p")   'vterm-toggle-backward)
 
+;;witch back and forth
+(global-set-key (kbd "M-<tab>") 'my-switch-to-other-buffer)
+
 (provide 'init-keybindings)
 

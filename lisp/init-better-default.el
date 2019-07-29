@@ -221,6 +221,11 @@
     (let ((default-directory "/sshx:n214@vps:"))
       ()))
 
+(defun my-switch-to-other-buffer ()
+  "Switch to other buffer"
+  (interactive)
+  (switch-to-buffer (other-buffer)))
+
 
 
 

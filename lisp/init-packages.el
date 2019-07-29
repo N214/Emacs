@@ -639,6 +639,7 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;--------------------------------------------------------ag search
 (use-package ag
   :ensure t
   :bind (:map ag-mode-map
@@ -653,5 +654,12 @@
 
 (use-package org-alert
   :config)
+
+;;--------------------------------------------------------dired+
+
+(add-to-list 'load-path "/home/n214/.emacs.d/elpa/dired+")
+(use-package dired+
+  :config (require 'dired+))
+
 
 (provide 'init-packages)
